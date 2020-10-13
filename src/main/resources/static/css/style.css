@@ -1,0 +1,288 @@
+* {
+    box-sizing: border-box;
+}
+html {
+    height: 100%;
+}
+body {
+    background: #2a2e37;
+    color: white;
+    font-family: 'Karla';
+    min-height: 100%;
+
+}
+
+a {
+    color: white;
+}
+
+.page-item {
+    color: dodgerblue;
+}
+
+.returnMsg {
+
+    font-size: 50px;
+    text-align: center;
+}
+
+.search {
+    width: 100px;
+    height: 100px;
+    margin: 40px auto 0;
+    background-color: #242628;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.search:before {
+    content: "";
+    display: block;
+    width: 3px;
+    height: 100%;
+    position: relative;
+    background-color: #00fede;
+    transition: all 0.5s ease;
+}
+
+.search.open {
+    width: 750px;
+}
+
+.search.open:before {
+    height: 60px;
+    margin: 20px 0 20px 30px;
+    position: absolute;
+}
+
+.search-box {
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    color: #fff;
+    padding: 20px 100px 20px 45px;
+    font-size: 40px;
+}
+
+.search-box:focus {
+    outline: none;
+}
+
+.search-button {
+    width: 100px;
+    height: 100px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.search-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    border: 3px solid #00fede;
+    display: block;
+    position: relative;
+    margin-left: 5px;
+    transition: all 0.5s ease;
+}
+
+.search-icon:before {
+    content: "";
+    width: 3px;
+    height: 15px;
+    position: absolute;
+    right: -2px;
+    top: 30px;
+    display: block;
+    background-color: #00fede;
+    transform: rotate(-45deg);
+    transition: all 0.5s ease;
+}
+
+.search-icon:after {
+    content: "";
+    width: 3px;
+    height: 15px;
+    position: absolute;
+    right: -12px;
+    top: 40px;
+    display: block;
+    background-color: #00fede;
+    transform: rotate(-45deg);
+    transition: all 0.5s ease;
+}
+
+.open .search-icon {
+    margin: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+}
+
+.open .search-icon:before {
+    transform: rotate(52deg);
+    right: 22px;
+    top: 23px;
+    height: 18px;
+}
+
+.open .search-icon:after {
+    transform: rotate(-230deg);
+    right: 22px;
+    top: 13px;
+    height: 18px;
+}
+
+footer {
+    position: absolute;
+    justify-content: center;
+    bottom: 0;
+    display: block;
+    background-color: #252c37;
+    border-color: #634082;
+    height: 120px;
+    width: 100%;
+    text-align: center;
+}
+
+.container{
+    margin-top: 10px;
+    height: 550px;
+    width: 80%;
+    border-color: darkslateblue;
+
+
+
+
+}
+.row .col-lg{
+    background-color: #2e3333;
+    text-align: center;
+    height: 525px;
+    padding: 0;
+    margin: 7px;
+
+}
+/* Searching for users style */
+
+
+
+#myInput {
+    box-sizing: border-box;
+    background-position: 14px 12px;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+#myInput:focus {outline: 3px solid #ddd;}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 40%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+#userBox {
+    color: #252c37;
+    background-color: inherit;
+    width: 250px;
+    height: 180px;
+    border-width: thin;
+    border-style: groove;
+    position: absolute;
+    left: 25%;
+    top: 15%;
+    align: left;
+
+}
+.delete {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.showOrders {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.userInfo{
+    background-color: #dddddd;
+    border-style: groove;
+    border-width: thin;
+    box-shadow: #dddddd;
+}
+
+#box1 {
+    text-align: center;
+    justify-content: center;
+}
+#box2 div {
+    margin: 10px;
+}
+
+.loggedBox{
+
+    box-shadow: 2px 2px 4px #120b20;
+    background-color: #2f2f2f;
+    border-color: darkslateblue;
+    margin-right: 15px;
+    margin-top: 3px;
+}
+
+.order-item{
+    border-color: #634082;
+    border-style: groove;
+    border-width: thin;
+}
+
+.books{
+  border-style: groove;
+}
+.addBook{
+    position: center;
+
+}
