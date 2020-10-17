@@ -1,20 +1,16 @@
 package WebApp.EasyLearn.controller;
 
+import WebApp.EasyLearn.model.response.ErrorResponse;
+import WebApp.EasyLearn.model.response.JwtResponse;
 import WebApp.EasyLearn.model.LoginForm;
-import WebApp.EasyLearn.model.RegisterForm;
 import WebApp.EasyLearn.model.User;
 import WebApp.EasyLearn.service.UserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.ReactiveAuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,27 +28,30 @@ public class LoginController extends BaseController {
     @RequestMapping(path = "/api/loginUser", method = RequestMethod.POST)
     public ResponseEntity<?> loginUser(@RequestBody LoginForm data) throws Exception {
 
-        List<User> userDetails = userService.findUsersByName(data.getLogin());
+        List<User> users = userService.findUsersByName(data.getLogin());
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-//        try {
-//            authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(data.getLogin(), encoder.encode(data.getPassword()))
-//            );
-//
-//        } catch (BadCredentialsException e) {
-//            throw new Exception("Incorrect username or password", e);
-//        }
+        if (users.equals(Collections.emptyList())) {
 
 
-        if (userDetails.equals(Collections.emptyList())) {
-            return ResponseEntity.ok("user not found");
+            response.setMsg("user not found");
+            return ResponseEntity.ok(response);
+        }
+        User currentUser = users.get(0);
+
+        if (!passwordEncoder.matches(data.getPassword(), currentUser.getPassword())) {
+
+            response.setMsg("wrong password");
+            return ResponseEntity.ok(response);
         }
 
-        final String jwt = jwtTokenUtil.generateToken(userDetails.get(0));
+        final String jwt = jwtTokenUtil.generateToken(currentUser);
 
-        return ResponseEntity.ok(jwt);
+        JwtResponse responseObject = new JwtResponse();
 
+        responseObject.id = currentUser.getId();
+        responseObject.username = currentUser.getUsername();
+        responseObject.token = jwt;
+
+        return ResponseEntity.ok(responseObject);
     }
 }

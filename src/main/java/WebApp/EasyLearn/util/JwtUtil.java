@@ -2,11 +2,10 @@ package WebApp.EasyLearn.util;
 
 import WebApp.EasyLearn.model.User;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -17,9 +16,12 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@Data
 public class JwtUtil implements Serializable {
 
     private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
+    private String expireDate;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -36,7 +38,6 @@ public class JwtUtil implements Serializable {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder().setSigningKey(key.getEncoded()).build().parseClaimsJws(token).getBody();
-        //setSigningKey(key.getEncoded()).parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) {
@@ -52,11 +53,11 @@ public class JwtUtil implements Serializable {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)).signWith(key, SignatureAlgorithm.HS256).compact();
-        //.signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
 
     }
 
     public Boolean validateToken(String token, User user) {
+
         final String username = extractUsername(token);
         return (username.equals(user.getUsername()) && !isTokenExpired(token));
     }

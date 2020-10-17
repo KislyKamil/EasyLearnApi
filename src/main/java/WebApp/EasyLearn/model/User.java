@@ -25,7 +25,4 @@ public class User implements Serializable {
     @Column(name = "mail", nullable = false)
     private String mail;
 
-    @Column(name = "roleId", nullable = false)
-    private Integer roleId;
-
 }

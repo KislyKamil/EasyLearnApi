@@ -2,11 +2,9 @@ package WebApp.EasyLearn.model;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Access;
 import java.util.Collection;
 
 public class AuthUserDetails extends User implements UserDetails {
