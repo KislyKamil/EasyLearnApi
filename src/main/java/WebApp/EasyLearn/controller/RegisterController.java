@@ -1,6 +1,6 @@
 package WebApp.EasyLearn.controller;
 
-import WebApp.EasyLearn.model.RegisterForm;
+import WebApp.EasyLearn.model.request.RegisterForm;
 import WebApp.EasyLearn.model.User;
 import WebApp.EasyLearn.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -9,8 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collections;
 
 @RestController
 public class RegisterController {

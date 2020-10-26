@@ -1,4 +1,4 @@
-package WebApp.EasyLearn.model;
+package WebApp.EasyLearn.model.request;
 
 import lombok.Getter;
 import lombok.Setter;

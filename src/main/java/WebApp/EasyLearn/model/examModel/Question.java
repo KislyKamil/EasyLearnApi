@@ -9,4 +9,10 @@ public class Question {
     public String engWord;
     public String plWord;
 
+    public Question(int id, String engWord, String plWord) {
+        this.id = id;
+        this.engWord = engWord;
+        this.plWord = plWord;
+    }
+
 }

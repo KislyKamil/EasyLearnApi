@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class WordPull {
+//TODO REMOVE PROBABLY
+public class WordPulloooooToDELETE {
 
 
     private final Random rand = new Random();

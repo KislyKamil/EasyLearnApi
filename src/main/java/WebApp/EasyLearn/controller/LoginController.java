@@ -1,8 +1,7 @@
 package WebApp.EasyLearn.controller;
 
-import WebApp.EasyLearn.model.response.ErrorResponse;
 import WebApp.EasyLearn.model.response.JwtResponse;
-import WebApp.EasyLearn.model.LoginForm;
+import WebApp.EasyLearn.model.request.LoginForm;
 import WebApp.EasyLearn.model.User;
 import WebApp.EasyLearn.service.UserService;
 import org.springframework.http.ResponseEntity;
