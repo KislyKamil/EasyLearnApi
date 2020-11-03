@@ -1,28 +1,51 @@
 package WebApp.EasyLearn.controller;
 
+import WebApp.EasyLearn.model.ExamStats;
+import WebApp.EasyLearn.model.User;
+import WebApp.EasyLearn.model.UserDetail;
 import WebApp.EasyLearn.model.examModel.Exam;
 import WebApp.EasyLearn.model.request.ExamRequest;
+import WebApp.EasyLearn.model.request.ExamSubmitRequest;
 import WebApp.EasyLearn.model.response.ExamResponse;
+import WebApp.EasyLearn.service.DetailService;
+import WebApp.EasyLearn.service.ExamStatsService;
+import WebApp.EasyLearn.service.UserService;
 import WebApp.EasyLearn.util.LevelGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 public class ExamController extends BaseController {
 
     private Exam exam;
     private ExamResponse response;
-    private final LevelGenerator levelGenerator = new LevelGenerator();
+    private UserDetail detail;
+    private ExamStats stats;
+
+    @Autowired
+    private LevelGenerator levelGenerator;
+
+    @Autowired
+    private DetailService detailService;
+
+    @Autowired
+    private ExamStatsService examStatsService;
 
 
-    @PostMapping(path = "/api/Exam/")
-    private ResponseEntity<?> requestExam(@RequestParam ExamRequest request) {
+    @PostMapping(path = "/api/Exam/New")
+    public ResponseEntity<?> requestExam(@RequestBody ExamRequest request) {
 
 
-        exam = new Exam(request.userID, levelGenerator.generateLevel(request.testID));
+        if (request.testID == 1) {
+
+            exam = new Exam(request.userID, levelGenerator.generateLevel(request.testID));
+        }
 
         response = new ExamResponse();
         response.setExam(exam);
@@ -30,16 +53,71 @@ public class ExamController extends BaseController {
         return ResponseEntity.ok(response);
     }
 
-    @RequestMapping(path = "/api/Exam/Submit")
-    private ResponseEntity<?> submitExam() {
+    @PostMapping(path = "/api/Exam/Submit")
+    private ResponseEntity<?> submitExam(@RequestBody ExamSubmitRequest request) {
 
-        //TODO MAKE THIS LATER 
-        return ResponseEntity.ok(response);
+        detail = new UserDetail();
+        stats = new ExamStats();
+
+        if (!detailService.isUserExists(request.getUserId())) {
+
+            ifNoUserDetail(detail, request);
+
+
+        }
+
+        if (!examStatsService.isStatsExists(request.getUserId())) {
+
+            ifNoStats(stats, request);
+
+            return ResponseEntity.ok("Request submitted");
+        }
+
+
+        detail = detailService.getUserDetail(request.getUserId());
+        detail.setPkt(detail.getPkt() + request.getPoints());
+        detail.setTestamount(detail.getTestamount() + 1);
+
+
+        stats = examStatsService.getStats(request.getUserId());
+        stats.setWords(request.getWrongAnswers());
+
+        detailService.addDetail(detail);
+        examStatsService.addStats(stats);
+
+
+        return ResponseEntity.ok("Request submitted");
     }
 
-    @RequestMapping(path = "/api/ExamRedo")
+    @RequestMapping(path = "/api/Exam/Redo")
     private ResponseEntity<?> redoExam() {
 
         return ResponseEntity.ok("TODO");
     }
+
+    @RequestMapping(path = "/api/Exam/Generate")
+    private ResponseEntity<?> generatedExam() {
+
+        return ResponseEntity.ok("TODO");
+    }
+
+
+    private void ifNoUserDetail(UserDetail detail, ExamSubmitRequest request) {
+
+        detail.setPkt(request.getPoints());
+        detail.setUserid(request.getUserId());
+        detail.setTestamount(request.getTestCount());
+
+        detailService.addDetail(detail);
+    }
+
+    private void ifNoStats(ExamStats stats, ExamSubmitRequest request) {
+
+        stats.setUserid(request.getUserId());
+        stats.setWords(request.getWrongAnswers());
+
+        examStatsService.addStats(stats);
+
+    }
+
 }

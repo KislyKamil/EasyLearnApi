@@ -11,14 +11,12 @@ import java.util.List;
 public class WordService {
 
     @Autowired
-    private static WordRepository wordRepository;
+    private WordRepository wordRepository;
 
-    public static List<WordModel> getWordsForExam(List<Integer> ids) {
+    public List<WordModel> getWordsForExam(List<Integer> ids) {
 
-        List<WordModel> wordList = wordRepository.findAllById(ids);
-
+        List<WordModel> wordList = wordRepository.findAllByIdIn(ids);
 
         return wordList;
-
     }
 }

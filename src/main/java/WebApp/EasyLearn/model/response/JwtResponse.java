@@ -9,4 +9,5 @@ public class JwtResponse {
     public int id;
     public String token;
     public String msg = null;
+    public int testAmount;
 }

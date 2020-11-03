@@ -3,7 +3,9 @@ package WebApp.EasyLearn.controller;
 import WebApp.EasyLearn.model.response.JwtResponse;
 import WebApp.EasyLearn.model.request.LoginForm;
 import WebApp.EasyLearn.model.User;
+import WebApp.EasyLearn.service.DetailService;
 import WebApp.EasyLearn.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +19,10 @@ import java.util.List;
 @RestController
 public class LoginController extends BaseController {
 
-    final private UserService userService;
-
-    public LoginController(UserService userService) {
-
-        this.userService = userService;
-    }
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private DetailService detailService;
 
     @RequestMapping(path = "/api/loginUser", method = RequestMethod.POST)
     public ResponseEntity<?> loginUser(@RequestBody LoginForm data) throws Exception {
@@ -50,6 +50,7 @@ public class LoginController extends BaseController {
         responseObject.id = currentUser.getId();
         responseObject.username = currentUser.getUsername();
         responseObject.token = jwt;
+        responseObject.testAmount = detailService.getUserDetail(currentUser.getId()).getTestamount();
 
         return ResponseEntity.ok(responseObject);
     }

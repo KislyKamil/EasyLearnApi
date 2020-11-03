@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -23,6 +24,10 @@ public class UserService implements UserDetailsService {
     public void addUser(User user) {
 
         userRepository.save(user);
+    }
+
+    public User findById(int id) {
+        return userRepository.findUserById(id);
     }
 
     public List<User> findUsersByName(String username) {

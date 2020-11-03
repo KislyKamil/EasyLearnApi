@@ -3,24 +3,47 @@ package WebApp.EasyLearn.util;
 import WebApp.EasyLearn.model.WordModel;
 import WebApp.EasyLearn.model.examModel.Question;
 import WebApp.EasyLearn.service.WordService;
-import org.springframework.expression.spel.ast.QualifiedIdentifier;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
+@Component
 public class LevelGenerator {
 
-    WordService wordService = new WordService();
+    @Autowired
+    private WordService wordService;
 
     public List<Question> generateLevel(int testID) {
 
-        int scope = testID * 12;
+        Random rand = new Random();
+
+        int max = testID * 20;
+        int min = max - 19;
+
         List<Integer> ids = new ArrayList<>();
 
         for (int i = 0; i < 12; i++) {
 
-            ids.add((int) (Math.random() * scope + (scope - 12)));
+            int newRand =  ThreadLocalRandom.current().nextInt(min, max + 1);
+
+
+            if (ids.contains(newRand)) {
+
+                while (ids.contains(newRand)) {
+                    newRand = rand.nextInt((max - min) + 1) + min;
+                }
+            }
+
+            ids.add(newRand);
+
+
         }
+        System.out.println((ids));
+        System.out.println(wordService.getWordsForExam(ids).size());
 
         return downloadWordsFromDB(wordService.getWordsForExam(ids));
     }

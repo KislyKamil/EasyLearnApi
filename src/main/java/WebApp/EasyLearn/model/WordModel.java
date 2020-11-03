@@ -15,10 +15,10 @@ public class WordModel {
     @Column(name = "id", insertable = false, nullable = false)
     private int id;
 
-    @Column(name = "engword", nullable = false)
+    @Column(name = "engvalue", nullable = false)
     private String engword;
 
-    @Column(name = "plword", nullable = false)
+    @Column(name = "plvalue", nullable = false)
     private String plword;
 
     @Column(name = "groupid", nullable = false)
