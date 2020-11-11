@@ -28,6 +28,7 @@ public class LoginController extends BaseController {
     public ResponseEntity<?> loginUser(@RequestBody LoginForm data) throws Exception {
 
         List<User> users = userService.findUsersByName(data.getLogin());
+        int testAmount = 1;
 
         if (users.equals(Collections.emptyList())) {
 
@@ -37,6 +38,10 @@ public class LoginController extends BaseController {
         }
         User currentUser = users.get(0);
 
+        if (detailService.isUserExists(currentUser.getId())) {
+
+            testAmount = detailService.getUserDetail(currentUser.getId()).getTestamount();
+        }
         if (!passwordEncoder.matches(data.getPassword(), currentUser.getPassword())) {
 
             response.setMsg("wrong password");
@@ -50,7 +55,7 @@ public class LoginController extends BaseController {
         responseObject.id = currentUser.getId();
         responseObject.username = currentUser.getUsername();
         responseObject.token = jwt;
-        responseObject.testAmount = detailService.getUserDetail(currentUser.getId()).getTestamount();
+        responseObject.testAmount = testAmount;
 
         return ResponseEntity.ok(responseObject);
     }

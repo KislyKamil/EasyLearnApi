@@ -41,13 +41,19 @@ public class ExamController extends BaseController {
     @PostMapping(path = "/api/Exam/New")
     public ResponseEntity<?> requestExam(@RequestBody ExamRequest request) {
 
+        response = new ExamResponse();
 
-        if (request.testID == 1) {
+        if (request.testID == 0) {
 
-            exam = new Exam(request.userID, levelGenerator.generateLevel(request.testID));
+            exam = new Exam(request.userID, levelGenerator.generateLevel(request.testID, false, request.userID));
+
+            response.setExam(exam);
+
+            return ResponseEntity.ok(response);
         }
 
-        response = new ExamResponse();
+        exam = new Exam(request.userID, levelGenerator.generateLevel(request.testID, true, request.userID));
+
         response.setExam(exam);
 
         return ResponseEntity.ok(response);
@@ -64,6 +70,14 @@ public class ExamController extends BaseController {
             ifNoUserDetail(detail, request);
 
 
+        } else {
+
+            detail = detailService.getUserDetail(request.getUserId());
+            detail.setPkt(detail.getPkt() + request.getPoints());
+            detail.setTestamount(detail.getTestamount() + 1);
+
+            detailService.addDetail(detail);
+
         }
 
         if (!examStatsService.isStatsExists(request.getUserId())) {
@@ -74,39 +88,21 @@ public class ExamController extends BaseController {
         }
 
 
-        detail = detailService.getUserDetail(request.getUserId());
-        detail.setPkt(detail.getPkt() + request.getPoints());
-        detail.setTestamount(detail.getTestamount() + 1);
-
-
         stats = examStatsService.getStats(request.getUserId());
         stats.setWords(request.getWrongAnswers());
 
-        detailService.addDetail(detail);
+
         examStatsService.addStats(stats);
 
 
         return ResponseEntity.ok("Request submitted");
     }
 
-    @RequestMapping(path = "/api/Exam/Redo")
-    private ResponseEntity<?> redoExam() {
-
-        return ResponseEntity.ok("TODO");
-    }
-
-    @RequestMapping(path = "/api/Exam/Generate")
-    private ResponseEntity<?> generatedExam() {
-
-        return ResponseEntity.ok("TODO");
-    }
-
-
     private void ifNoUserDetail(UserDetail detail, ExamSubmitRequest request) {
 
         detail.setPkt(request.getPoints());
         detail.setUserid(request.getUserId());
-        detail.setTestamount(request.getTestCount());
+        detail.setTestamount(2);
 
         detailService.addDetail(detail);
     }

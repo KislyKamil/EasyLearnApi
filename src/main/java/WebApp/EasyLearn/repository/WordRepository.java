@@ -10,4 +10,6 @@ public interface WordRepository extends JpaRepository<WordModel, Integer>, JpaSp
 
     List<WordModel> findAllByIdIn(List<Integer> ids);
 
+    List<WordModel> findByengword(String wordName);
+
 }
