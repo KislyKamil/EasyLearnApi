@@ -19,7 +19,7 @@ public class SpeechStatsService {
         speechStatsRepository.save(model);
     }
 
-    public SpeechStatsModel findById(int id) {
+    public SpeechStatsModel findByUserId(int id) {
         return speechStatsRepository.findByUserid(id);
     }
 

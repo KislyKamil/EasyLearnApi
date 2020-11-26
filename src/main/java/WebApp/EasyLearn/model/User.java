@@ -24,5 +24,4 @@ public class User implements Serializable {
 
     @Column(name = "mail", nullable = false)
     private String mail;
-
 }

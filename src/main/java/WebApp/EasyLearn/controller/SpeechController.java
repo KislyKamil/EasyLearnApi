@@ -17,7 +17,7 @@ public class SpeechController extends BaseController {
 
         if (speechStatsService.ifUserExists(request.getUserId())) {
 
-            model = speechStatsService.findById(request.getUserId());
+            model = speechStatsService.findByUserId(request.getUserId());
             model.setPoints(model.getPoints() + request.getPoints());
             model.setTotal(model.getTotal() + 6);
 
