@@ -35,7 +35,7 @@ public class LevelGenerator {
     }
 
 
-    private List<Question> downloadWordsFromDB(List<WordModel> words) {
+    public List<Question> downloadWordsFromDB(List<WordModel> words) {
 
         List<Question> keyWords = new ArrayList<>();
 

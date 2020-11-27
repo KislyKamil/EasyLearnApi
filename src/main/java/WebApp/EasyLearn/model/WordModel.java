@@ -23,4 +23,11 @@ public class WordModel {
 
     @Column(name = "groupid", nullable = false)
     private int groupID;
+
+    public WordModel(int id, String engword, String plword, int groupID) {
+        this.id = id;
+        this.engword = engword;
+        this.plword = plword;
+        this.groupID = groupID;
+    }
 }
