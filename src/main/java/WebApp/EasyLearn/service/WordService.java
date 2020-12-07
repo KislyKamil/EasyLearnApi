@@ -25,4 +25,9 @@ public class WordService {
 
         return wordRepository.findByengword(word);
     }
+
+    public long getCount() {
+
+        return wordRepository.count();
+    }
 }

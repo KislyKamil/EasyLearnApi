@@ -30,4 +30,6 @@ public class WordModel {
         this.plword = plword;
         this.groupID = groupID;
     }
+
+    public WordModel() {}
 }

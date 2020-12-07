@@ -51,6 +51,10 @@ public class LevelGenerator {
 
         int max = (testID + 1) * 20;
         int min = max - 19;
+        if (max > wordService.getCount()) {
+            max = (int) wordService.getCount();
+            min = 1;
+        }
 
         List<Integer> ids = new ArrayList<>();
 
