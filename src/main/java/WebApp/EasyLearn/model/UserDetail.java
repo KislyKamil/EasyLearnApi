@@ -27,5 +27,8 @@ public class UserDetail implements Serializable {
     @Column(name = "userid", nullable = false)
     private int userid;
 
+    @Column(name = "textdone", nullable = false)
+    private int textdone;
+
 
 }

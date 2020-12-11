@@ -7,4 +7,5 @@ public class DetailsResponse {
 
     private int testAll;
     private int speechAll;
+    private int textAll;
 }

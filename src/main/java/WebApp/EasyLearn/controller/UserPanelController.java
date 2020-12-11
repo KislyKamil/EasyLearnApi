@@ -27,7 +27,7 @@ public class UserPanelController extends BaseController {
 
 
     @PostMapping(path = "/api/EditUser")
-    public ResponseEntity<?> requestExam(@RequestBody EditUser request) {
+    public ResponseEntity<?> editUserPanel(@RequestBody EditUser request) {
 
         User user = userService.findById(request.getId());
 
@@ -63,12 +63,8 @@ public class UserPanelController extends BaseController {
             mdUser.setMail(request.getEmail());
         }
 
-
-
         return mdUser;
 
     }
-
-
 }
 

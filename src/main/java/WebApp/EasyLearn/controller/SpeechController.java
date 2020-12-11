@@ -27,7 +27,7 @@ public class SpeechController extends BaseController {
         }
 
         model.setPoints(request.getPoints());
-        model.setTotal(6);
+        model.setTotal(5);
         model.setUserid(request.getUserId());
 
         speechStatsService.addStats(model);

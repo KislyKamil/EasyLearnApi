@@ -18,16 +18,18 @@ public class DetailsController extends BaseController {
     private DetailService detailService;
 
     @GetMapping(path = "/api/Details/{id}")
-    public ResponseEntity<?> requestExam(@PathVariable(value = "id") int id) {
+    public ResponseEntity<?> statsController(@PathVariable(value = "id") int id) {
 
         DetailsResponse response = new DetailsResponse();
         detailService.getUserDetail(id);
 
         if (!detailService.isUserExists(id)) {
             response.setTestAll(0);
+            response.setTextAll(0);
 
         } else {
             response.setTestAll(detailService.getUserDetail(id).getTestamount());
+            response.setTextAll(detailService.getUserDetail(id).getTextdone());
         }
 
 

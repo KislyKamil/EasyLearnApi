@@ -75,6 +75,7 @@ public class ExamController extends BaseController {
             detail = detailService.getUserDetail(request.getUserId());
             detail.setPkt(detail.getPkt() + request.getPoints());
             detail.setTestamount(detail.getTestamount() + 1);
+            detail.setTextdone(detail.getTextdone());
 
             detailService.addDetail(detail);
 
@@ -103,6 +104,7 @@ public class ExamController extends BaseController {
         detail.setPkt(request.getPoints());
         detail.setUserid(request.getUserId());
         detail.setTestamount(2);
+        detail.setTextdone(0);
 
         detailService.addDetail(detail);
     }
