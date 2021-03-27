@@ -56,6 +56,7 @@ public class LoginController extends BaseController {
         responseObject.username = currentUser.getUsername();
         responseObject.token = jwt;
         responseObject.testAmount = testAmount;
+        responseObject.email = currentUser.getMail();
 
         return ResponseEntity.ok(responseObject);
     }

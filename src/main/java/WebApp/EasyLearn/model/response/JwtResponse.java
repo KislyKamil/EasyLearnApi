@@ -10,4 +10,5 @@ public class JwtResponse {
     public String token;
     public String msg = null;
     public int testAmount;
+    public String email;
 }
