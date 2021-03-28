@@ -17,7 +17,6 @@ public class WordService {
     public List<WordModel> getWordsForExam(List<Integer> ids) {
 
         List<WordModel> wordList = wordRepository.findAllByIdIn(ids);
-
         return wordList;
     }
 

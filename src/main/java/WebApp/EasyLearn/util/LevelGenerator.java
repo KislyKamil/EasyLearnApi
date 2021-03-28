@@ -81,10 +81,9 @@ public class LevelGenerator {
     private List<WordModel> getWords(int testID, Random rand, int userID) {
 
         int max = (testID * 2) + 20;
-        int min = max - 21;
+        int min = (max - 21);
         int diff = 12;
         List<Integer> ids = new ArrayList<>();
-
 
         if (getWordsToReviewIds(userID).size() == 12) {
 

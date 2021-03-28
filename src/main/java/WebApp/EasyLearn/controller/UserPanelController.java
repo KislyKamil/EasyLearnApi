@@ -40,6 +40,7 @@ public class UserPanelController extends BaseController {
 
         responseObject.username = newUser.getUsername();
         responseObject.token = jwt;
+        responseObject.email= newUser.getMail();
 
         return ResponseEntity.ok(responseObject);
     }

@@ -90,12 +90,15 @@ public class ExamController extends BaseController {
 
 
         stats = examStatsService.getStats(request.getUserId());
+
+        if (request.getWrongAnswers().equals("")) {
+            stats.setWords("ask,");
+            examStatsService.addStats(stats);
+            return ResponseEntity.ok("Request submitted");
+        }
+
         stats.setWords(request.getWrongAnswers());
-
-
         examStatsService.addStats(stats);
-
-
         return ResponseEntity.ok("Request submitted");
     }
 
